@@ -9,12 +9,12 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-container: mcr.microsoft.com/dotnet/core/sdk:3.0
 
 stages:
   - stage: A
     jobs:
       - job:
+        container: mcr.microsoft.com/dotnet/core/sdk:3.0
         steps:
           - task: DotNetCoreCLI@2
             inputs: 
