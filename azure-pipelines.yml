@@ -11,12 +11,27 @@ pool:
 
 container: mcr.microsoft.com/dotnet/core/sdk:3.0
 
-steps:
-- task: DotNetCoreCLI@2
-  inputs: 
-    command: build
+stages:
+  - stage: A
+    jobs:
+      - job:
+        steps:
+          - task: DotNetCoreCLI@2
+            inputs: 
+              command: build
+        
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'test'
+              projects: '**/*Tests*.csproj'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/*Tests*.csproj'
+  - stage: B
+    jobs:
+    - job:
+      steps:
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Write your commands here
+            echo 'Hello world'
